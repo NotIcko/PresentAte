@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
+    <ProjectReference Include="..\PresentAte.Common\PresentAte.Common.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,9 +1,12 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using PresentAte.Data;
-
 namespace PresentAte
 {
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Options;
+    using PresentAte.Data;
+    using PresentAte.Data.Models;
+    using static PresentAte.Common.ApplicationConstants.UserConstants;
+
     public class Program
     {
         public static void Main(string[] args)
@@ -16,8 +19,17 @@ namespace PresentAte
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<PresentAteDbContext>();
+            builder.Services.AddDefaultIdentity<User>(options =>
+            {
+                options.SignIn.RequireConfirmedAccount = SignInRequireConfirmedAccount;
+                options.Password.RequireDigit = PasswordRequireDigit;
+                options.Password.RequireLowercase = PasswordRequireLowercase;
+                options.Password.RequireNonAlphanumeric = PasswordRequireNonAlphanumeric;
+                options.Password.RequireUppercase = PasswordRequireUppercase;
+                options.Password.RequiredLength = PasswordRequiredLength;
+                options.Password.RequiredUniqueChars = PasswordRequiredUniqueChars;
+            })
+            .AddEntityFrameworkStores<PresentAteDbContext>();
 
             builder.Services.AddRazorPages();
             builder.Services.AddControllersWithViews();
