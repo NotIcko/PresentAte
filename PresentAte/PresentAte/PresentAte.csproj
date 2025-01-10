@@ -13,12 +13,17 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.10" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\PresentAte.Common\PresentAte.Common.csproj" />
     <ProjectReference Include="..\PresentAte.Data\PresentAte.Data.csproj" />
     <ProjectReference Include="..\PresentAte.ViewModels\PresentAte.ViewModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Views\" />
   </ItemGroup>
 
 </Project>

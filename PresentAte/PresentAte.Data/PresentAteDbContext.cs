@@ -4,7 +4,7 @@
     using Microsoft.EntityFrameworkCore;
     using PresentAte.Data.Models;
 
-    public class PresentAteDbContext : IdentityDbContext<User>
+    public class PresentAteDbContext : IdentityDbContext<ApplicationUser>
     {
         public PresentAteDbContext() { }
 
@@ -12,7 +12,7 @@
             DbContextOptions<PresentAteDbContext> options)
             : base(options) { }
 
-        public virtual DbSet<User> Users { get; set; } = null!;
+        public virtual DbSet<ApplicationUser> Users { get; set; } = null!;
         public virtual DbSet<History> Histories { get; set; } = null!;
         public virtual DbSet<Presentation> Presentations { get; set; } = null!;
 

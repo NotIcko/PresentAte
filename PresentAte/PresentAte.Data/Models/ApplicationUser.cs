@@ -4,7 +4,7 @@
     using Microsoft.AspNetCore.Identity;
     using static PresentAte.Common.ApplicationConstants.UserConstants;
 
-    public class User : IdentityUser
+    public class ApplicationUser : IdentityUser
     {
         [Required]
         [MaxLength(UserFirstNameMaxLength)]

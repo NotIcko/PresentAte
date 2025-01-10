@@ -19,7 +19,7 @@ namespace PresentAte
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddDefaultIdentity<User>(options =>
+            builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = SignInRequireConfirmedAccount;
                 options.Password.RequireDigit = PasswordRequireDigit;
@@ -53,7 +53,12 @@ namespace PresentAte
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+
+            app.MapControllerRoute(
+                name: "areas",
+                pattern: "{area:exists}/{controller=AdminPanel}/{action=Index}/{id?}");
 
             app.MapControllerRoute(
                 name: "default",
