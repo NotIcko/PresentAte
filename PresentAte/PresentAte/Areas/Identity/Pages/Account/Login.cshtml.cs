@@ -10,7 +10,7 @@ using PresentAte.Data.Models;
 namespace PresentAte.Areas.Identity.Pages.Account
 {
     public class LoginModel(
-        SignInManager<User> signInManager, 
+        SignInManager<ApplicationUser> signInManager, 
         ILogger<LoginModel> logger) : PageModel
     {
 

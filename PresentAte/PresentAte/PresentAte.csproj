@@ -23,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\PresentAte.Common\PresentAte.Common.csproj" />
     <ProjectReference Include="..\PresentAte.Data\PresentAte.Data.csproj" />
+    <ProjectReference Include="..\PresentAte.Services.Data\PresentAte.Services.Data.csproj" />
     <ProjectReference Include="..\PresentAte.ViewModels\PresentAte.ViewModels.csproj" />
   </ItemGroup>
 

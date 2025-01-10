@@ -8,7 +8,7 @@ using PresentAte.Data.Models;
 namespace PresentAte.Areas.Identity.Pages.Account
 {
     public class LogoutModel(
-        SignInManager<User> signInManager, 
+        SignInManager<ApplicationUser> signInManager, 
         ILogger<LogoutModel> logger) : PageModel
     {
         public async Task<IActionResult> OnPost(string returnUrl = null)

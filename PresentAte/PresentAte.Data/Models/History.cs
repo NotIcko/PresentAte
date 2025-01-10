@@ -10,7 +10,7 @@
         public string UserId { get; set; }
 
         [Required]
-        public virtual User User { get; set; } = null!;
+        public virtual ApplicationUser User { get; set; } = null!;
 
         [Required]
         [ForeignKey(nameof(Presentation))]

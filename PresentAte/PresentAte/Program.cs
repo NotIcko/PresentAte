@@ -8,6 +8,8 @@ namespace PresentAte
     using Microsoft.Extensions.Options;
     using PresentAte.Data;
     using PresentAte.Data.Models;
+    using PresentAte.Services.Data.Implementations;
+    using PresentAte.Services.Data.Interfaces;
     using static PresentAte.Common.ApplicationConstants.UserConstants;
 
     public class Program
@@ -22,7 +24,7 @@ namespace PresentAte
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddDefaultIdentity<User>(options =>
+            builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = SignInRequireConfirmedAccount;
                 options.Password.RequireDigit = PasswordRequireDigit;
@@ -32,7 +34,11 @@ namespace PresentAte
                 options.Password.RequiredLength = PasswordRequiredLength;
                 options.Password.RequiredUniqueChars = PasswordRequiredUniqueChars;
             })
-            .AddEntityFrameworkStores<PresentAteDbContext>();
+            .AddRoles<IdentityRole>()
+            .AddEntityFrameworkStores<PresentAteDbContext>()
+            .AddDefaultTokenProviders();
+
+            builder.Services.AddScoped<IUserService, UserService>();
 
             builder.Services.AddRazorPages();
             builder.Services.AddControllersWithViews();
@@ -56,7 +62,12 @@ namespace PresentAte
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+
+            app.MapControllerRoute(
+                name: "areas",
+                pattern: "{area:exists}/{controller=AdminPanel}/{action=Index}/{id?}");
 
             app.MapControllerRoute(
                 name: "default",

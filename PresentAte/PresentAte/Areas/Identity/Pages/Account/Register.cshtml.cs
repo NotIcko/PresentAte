@@ -15,13 +15,13 @@ using static PresentAte.Common.ApplicationConstants.UserConstants;
 namespace PresentAte.Areas.Identity.Pages.Account
 {
     public class RegisterModel(
-        UserManager<User> userManager,
-        IUserStore<User> userStore,
-        SignInManager<User> signInManager,
+        UserManager<ApplicationUser> userManager,
+        IUserStore<ApplicationUser> userStore,
+        SignInManager<ApplicationUser> signInManager,
         ILogger<RegisterModel> logger,
         IEmailSender emailSender) : PageModel
     {
-        private IUserEmailStore<User> emailStore
+        private IUserEmailStore<ApplicationUser> emailStore
             => GetEmailStore();
 
         /// <summary>
@@ -146,11 +146,11 @@ namespace PresentAte.Areas.Identity.Pages.Account
             return Page();
         }
 
-        private User CreateUser()
+        private ApplicationUser CreateUser()
         {
             try
             {
-                return Activator.CreateInstance<User>();
+                return Activator.CreateInstance<ApplicationUser>();
             }
             catch
             {
@@ -160,13 +160,13 @@ namespace PresentAte.Areas.Identity.Pages.Account
             }
         }
 
-        private IUserEmailStore<User> GetEmailStore()
+        private IUserEmailStore<ApplicationUser> GetEmailStore()
         {
             if (!userManager.SupportsUserEmail)
             {
                 throw new NotSupportedException("The default UI requires a user store with email support.");
             }
-            return (IUserEmailStore<User>)userStore;
+            return (IUserEmailStore<ApplicationUser>)userStore;
         }
     }
 }
