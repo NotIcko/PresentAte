@@ -38,10 +38,14 @@ namespace PresentAte
             .AddEntityFrameworkStores<PresentAteDbContext>()
             .AddDefaultTokenProviders();
 
-            builder.Services.AddScoped<IUserService, UserService>();
-
             builder.Services.AddRazorPages();
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddHttpClient<IGoogleGeminiService, GoogleGeminiService>();
+
+            builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IGoogleGeminiService, GoogleGeminiService>();
+            builder.Services.AddScoped<IPowerPointService, PowerPointService>();
 
             var app = builder.Build();
 

@@ -1,0 +1,35 @@
+﻿@using PresentAte.ViewModels.PresentationViewModels;
+@model List<PresentationViewModel>
+
+@{
+    ViewData["Title"] = "AI-Generated Presentations";
+}
+
+<h2 class="text-center my-3">AI-Generated Presentations</h2>
+
+<div class="container">
+    <div class="text-center mb-3">
+        <a href="@Url.Action("Generate", "Presentation")" class="btn btn-success">Generate New Presentation</a>
+    </div>
+
+    <div class="row">
+        @if (!Model.Any())
+        {
+            <p class="text-center text-muted">No presentations available yet.</p>
+        }
+        else
+        {
+            @foreach (var presentation in Model)
+            {
+                <div class="col-md-4">
+                    <div class="card my-3 shadow-sm">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">@presentation.Topic</h5>
+                            <a href="@Url.Action("DownloadPresentation", new { id = presentation.Id })" class="btn btn-primary" download>Download</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

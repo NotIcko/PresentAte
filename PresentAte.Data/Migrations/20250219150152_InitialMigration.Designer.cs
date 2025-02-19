@@ -12,7 +12,7 @@ using PresentAte.Data;
 namespace PresentAte.Data.Migrations
 {
     [DbContext(typeof(PresentAteDbContext))]
-    [Migration("20241112000618_InitialMigration")]
+    [Migration("20250219150152_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace PresentAte.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.10")
+                .HasAnnotation("ProductVersion", "8.0.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -162,44 +162,7 @@ namespace PresentAte.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("PresentAte.Data.Models.History", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("PresentationId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId", "PresentationId");
-
-                    b.HasIndex("PresentationId");
-
-                    b.ToTable("Histories");
-                });
-
-            modelBuilder.Entity("PresentAte.Data.Models.Presentation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("HashCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Presentations");
-                });
-
-            modelBuilder.Entity("PresentAte.Data.Models.User", b =>
+            modelBuilder.Entity("PresentAte.Data.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -274,6 +237,43 @@ namespace PresentAte.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("PresentAte.Data.Models.History", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("PresentationId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "PresentationId");
+
+                    b.HasIndex("PresentationId");
+
+                    b.ToTable("Histories");
+                });
+
+            modelBuilder.Entity("PresentAte.Data.Models.Presentation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("HashCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Presentations");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -285,7 +285,7 @@ namespace PresentAte.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("PresentAte.Data.Models.User", null)
+                    b.HasOne("PresentAte.Data.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -294,7 +294,7 @@ namespace PresentAte.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("PresentAte.Data.Models.User", null)
+                    b.HasOne("PresentAte.Data.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -309,7 +309,7 @@ namespace PresentAte.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PresentAte.Data.Models.User", null)
+                    b.HasOne("PresentAte.Data.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -318,7 +318,7 @@ namespace PresentAte.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("PresentAte.Data.Models.User", null)
+                    b.HasOne("PresentAte.Data.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -333,7 +333,7 @@ namespace PresentAte.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PresentAte.Data.Models.User", "User")
+                    b.HasOne("PresentAte.Data.Models.ApplicationUser", "User")
                         .WithMany("Histories")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -344,12 +344,12 @@ namespace PresentAte.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("PresentAte.Data.Models.Presentation", b =>
+            modelBuilder.Entity("PresentAte.Data.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Histories");
                 });
 
-            modelBuilder.Entity("PresentAte.Data.Models.User", b =>
+            modelBuilder.Entity("PresentAte.Data.Models.Presentation", b =>
                 {
                     b.Navigation("Histories");
                 });

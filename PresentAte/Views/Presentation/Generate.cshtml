@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Generate Presentation";
+}
+
+<h2 class="text-center my-3">Generate a New Presentation</h2>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger">@TempData["Error"]</div>
+            }
+
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success">@TempData["Success"]</div>
+            }
+
+            <form method="post" asp-controller="Presentation" asp-action="GeneratePresentation">
+                <div class="mb-3">
+                    <label for="topic" class="form-label">Enter Presentation Topic:</label>
+                    <input type="text" class="form-control" id="topic" name="topic" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Generate</button>
+            </form>
+        </div>
+    </div>
+</div>
