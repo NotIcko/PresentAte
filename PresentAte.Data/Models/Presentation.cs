@@ -10,11 +10,14 @@
 
         [Required]
         [MaxLength(PresentationTitleMaxLength)]
-        public string Title { get; set; } = null!;
+        public string Topic { get; set; } = null!;
 
-        public string HashCode { get; set; } = null!;
+        public string? HashCode { get; set; }
 
-        public virtual ICollection<History> Histories { get; set; }
-            = new HashSet<History>();
+        public byte[] FileContent { get; set; } = null!;
+
+        public DateTime CreatedAt { get; set; }
+
+        public virtual ICollection<History> Histories { get; set; } = new HashSet<History>();
     }
 }
