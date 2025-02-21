@@ -2,7 +2,46 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="page-section clearfix">
+    <div class="container">
+        <div class="intro">
+            <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="~/img/literature.jpg" alt="..." />
+            <div class="intro-text left-0 text-center bg-faded p-5 rounded">
+                <h2 class="section-heading mb-4">
+                    <span class="section-heading-upper">AI-GENERATED PRESENTATIONSs</span>
+                    <span class="section-heading-lower">EFFORTLESS & ENGAGING LEARNING</span>
+                </h2>
+                <p class="mb-3">
+                    Our AI-powered system creates high-quality, well-structured presentations for Bulgarian literature classes in 11th and 12th grade. With automatically generated slides, you can save time and focus on understanding the material instead of designing presentations.
+                    Each presentation is tailored to key topics, ensuring engaging and insightful lessons. Whether you need a deep dive into classic Bulgarian works or a modern interpretation of literary themes, our AI delivers! Make learning easier, faster, and more interactive!
+                </p>
+                <div class="intro-button mx-auto"><a class="btn btn-primary btn-xl" asp-controller="Presentation" asp-action="Generate">Try It Today!</a></div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="page-section cta">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 mx-auto">
+                <div class="cta-inner bg-faded text-center rounded">
+                    <h2 class="section-heading mb-4">
+                        <span class="section-heading-upper">OUR VISION</span>
+                        <span class="section-heading-lower">INNOVATION IN EDUCATION</span>
+                    </h2>
+                    <p class="mb-0">
+                        Learning should be efficient, engaging, and effortless. PresentAte transforms how students and teachers interact with Bulgarian literature by automating presentation creation. Our AI ensures well-structured, visually appealing, and content-rich slides that align with the curriculum.
+
+                        Say goodbye to hours of manual work—focus on analyzing literature, discussing ideas, and deepening your understanding. Let technology enhance your learning experience with high-quality presentations at your fingertips.
+                    </p>
+                    <span class="section-heading-upper">Embrace the future of education with PresentAte!</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
