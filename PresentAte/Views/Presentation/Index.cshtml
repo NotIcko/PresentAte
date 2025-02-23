@@ -5,13 +5,11 @@
     ViewData["Title"] = "AI-Generated Presentations";
 }
 
-<h2 class="text-center my-3">AI-Generated Presentations</h2>
+<h2 class="text-center my-5">AI-Generated Presentations</h2>
+
+<input type="text" id="searchInput" class="search-box" placeholder="Search presentations..." onkeyup="searchPresentations()">
 
 <div class="container mrg-btm">
-    <div class="text-center mb-3">
-        <a href="@Url.Action("Generate", "Presentation")" class="btn btn-success">Generate New Presentation</a>
-    </div>
-
     <div class="row">
         @if (!Model.Any())
         {
@@ -31,5 +29,8 @@
                 </div>
             }
         }
+    </div>
+    <div class="text-center mb-3" id="btn-gen-new">
+        <a href="@Url.Action("Generate", "Presentation")" class="btn btn-success">Generate New Presentation</a>
     </div>
 </div>
