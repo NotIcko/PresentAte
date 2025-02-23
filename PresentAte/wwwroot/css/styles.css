@@ -1,7 +1,16 @@
 @charset "UTF-8";
 
+#register {
+    margin-bottom: 300px;
+    gap: 4em;
+}
+
+.up {
+    margin-top: -150px;
+}
+
 .mrg-btm {
-    margin-bottom: 400px;
+    margin-bottom: 300px;
 }
 
 #identity-actions {
