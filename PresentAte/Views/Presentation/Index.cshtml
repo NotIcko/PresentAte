@@ -7,7 +7,7 @@
 
 <h2 class="text-center my-5">AI-Generated Presentations</h2>
 
-<input type="text" id="searchInput" class="search-box" placeholder="Search presentations..." onkeyup="searchPresentations()">
+<input type="text" id="searchBar" placeholder="  Search presentations..." onkeyup="filterPresentations()">
 
 <div class="container mrg-btm">
     <div class="row">
@@ -17,20 +17,37 @@
         }
         else
         {
+            @* @foreach (var presentation in Model)
+        {
+        <div class="col-md-4">
+        <div class="card my-3 shadow-sm mrg-btm">
+        <div class="card-body text-center">
+        <h5 class="card-title">@presentation.Topic</h5>
+        <a href="@Url.Action("DownloadPresentation", new { id = presentation.Id })" class="btn btn-primary" download>Download</a>
+        </div>
+        </div>
+        </div>
+        } *@
+
             @foreach (var presentation in Model)
             {
                 <div class="col-md-4">
-                    <div class="card my-3 shadow-sm mrg-btm">
+                    <div class="card my-3 shadow-sm mrg-btm" data-title="@presentation.Topic">
                         <div class="card-body text-center">
-                            <h5 class="card-title">@presentation.Topic</h5>
-                            <a href="@Url.Action("DownloadPresentation", new { id = presentation.Id })" class="btn btn-primary" download>Download</a>
+                            <h3>@presentation.Topic</h3>
+                            <p>Generated at: @presentation.CreatedAt.ToString("yyyy-MM-dd HH:mm")</p>
+                            <button class="btn btn-primary" onclick="downloadPresentation(@presentation.Id)">Download</button>
+                            <button class="btn btn-primary" onclick="deletePresentation(@presentation.Id)">Remove</button>
                         </div>
                     </div>
                 </div>
             }
+
         }
     </div>
     <div class="text-center mb-3" id="btn-gen-new">
-        <a href="@Url.Action("Generate", "Presentation")" class="btn btn-success">Generate New Presentation</a>
+        <a href="@Url.Action("Generate", "Presentation")" class="btn btn-success" id="generate">Generate New Presentation</a>
     </div>
 </div>
+
+
