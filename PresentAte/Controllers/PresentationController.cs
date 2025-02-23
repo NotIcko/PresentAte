@@ -77,7 +77,7 @@ namespace PresentAte.Controllers
                 return NotFound();
             }
 
-            return File(presentation.FileContent, "application/vnd.openxmlformats-officedocument.presentationml.presentation", $"{presentation.Topic}.pdf");
+            return File(presentation.FileContent, "application/vnd.openxmlformats-officedocument.presentationml.presentation", $"{presentation.Topic}.pptx");
         }
     }
 }

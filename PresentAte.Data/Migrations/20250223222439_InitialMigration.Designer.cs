@@ -12,7 +12,7 @@ using PresentAte.Data;
 namespace PresentAte.Data.Migrations
 {
     [DbContext(typeof(PresentAteDbContext))]
-    [Migration("20250221191703_InitialMigration")]
+    [Migration("20250223222439_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
