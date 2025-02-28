@@ -46,6 +46,7 @@ namespace PresentAte
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IGoogleGeminiService, GoogleGeminiService>();
             builder.Services.AddScoped<IPowerPointService, PowerPointService>();
+            builder.Services.AddScoped<IEssayService, EssayService>();
 
             var app = builder.Build();
 

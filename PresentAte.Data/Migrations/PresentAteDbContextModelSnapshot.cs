@@ -234,6 +234,78 @@ namespace PresentAte.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("PresentAte.Data.Models.Essay", b =>
+                {
+                    b.Property<string>("EssayId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsPublished")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ThemeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("EssayId");
+
+                    b.HasIndex("ThemeId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Essays");
+                });
+
+            modelBuilder.Entity("PresentAte.Data.Models.EssaySuggestion", b =>
+                {
+                    b.Property<int>("SuggestionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SuggestionId"));
+
+                    b.Property<string>("EssayId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("SuggestionText")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SuggestionId");
+
+                    b.HasIndex("EssayId");
+
+                    b.ToTable("EssaySuggestions");
+                });
+
+            modelBuilder.Entity("PresentAte.Data.Models.EssayTheme", b =>
+                {
+                    b.Property<int>("ThemeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ThemeId"));
+
+                    b.Property<string>("ThemeName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.HasKey("ThemeId");
+
+                    b.ToTable("EssayThemes");
+                });
+
             modelBuilder.Entity("PresentAte.Data.Models.History", b =>
                 {
                     b.Property<string>("UserId")
@@ -328,6 +400,36 @@ namespace PresentAte.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("PresentAte.Data.Models.Essay", b =>
+                {
+                    b.HasOne("PresentAte.Data.Models.EssayTheme", "Theme")
+                        .WithMany("Essays")
+                        .HasForeignKey("ThemeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("PresentAte.Data.Models.ApplicationUser", "User")
+                        .WithMany("Essays")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Theme");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("PresentAte.Data.Models.EssaySuggestion", b =>
+                {
+                    b.HasOne("PresentAte.Data.Models.Essay", "Essay")
+                        .WithMany("Suggestions")
+                        .HasForeignKey("EssayId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Essay");
+                });
+
             modelBuilder.Entity("PresentAte.Data.Models.History", b =>
                 {
                     b.HasOne("PresentAte.Data.Models.Presentation", "Presentation")
@@ -349,7 +451,19 @@ namespace PresentAte.Data.Migrations
 
             modelBuilder.Entity("PresentAte.Data.Models.ApplicationUser", b =>
                 {
+                    b.Navigation("Essays");
+
                     b.Navigation("Histories");
+                });
+
+            modelBuilder.Entity("PresentAte.Data.Models.Essay", b =>
+                {
+                    b.Navigation("Suggestions");
+                });
+
+            modelBuilder.Entity("PresentAte.Data.Models.EssayTheme", b =>
+                {
+                    b.Navigation("Essays");
                 });
 
             modelBuilder.Entity("PresentAte.Data.Models.Presentation", b =>
