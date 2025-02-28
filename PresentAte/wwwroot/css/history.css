@@ -1,0 +1,32 @@
+﻿.search-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto 50px auto;
+    padding: 10px;
+}
+
+.search-box {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#btn-gen-new {
+    margin-top: 40px;
+}
+
+#generate {
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+}
+
+#searchBar {
+    display: flex;
+    justify-self: anchor-center;
+    width: 50em;
+    height: 2em;
+    border-radius: 1em;
+    margin-bottom: 1.5em;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}

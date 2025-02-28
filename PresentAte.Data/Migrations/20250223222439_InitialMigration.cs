@@ -58,8 +58,10 @@ namespace PresentAte.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
-                    HashCode = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Topic = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
+                    HashCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FileContent = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -187,13 +189,13 @@ namespace PresentAte.Data.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Histories_Presentations_PresentationId",
                         column: x => x.PresentationId,
                         principalTable: "Presentations",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

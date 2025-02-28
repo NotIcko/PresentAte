@@ -12,7 +12,7 @@ using PresentAte.Data;
 namespace PresentAte.Data.Migrations
 {
     [DbContext(typeof(PresentAteDbContext))]
-    [Migration("20250219150152_InitialMigration")]
+    [Migration("20250223222439_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -260,11 +260,17 @@ namespace PresentAte.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("HashCode")
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<byte[]>("FileContent")
                         .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("HashCode")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Title")
+                    b.Property<string>("Topic")
                         .IsRequired()
                         .HasMaxLength(60)
                         .HasColumnType("nvarchar(60)");
