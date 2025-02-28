@@ -14,13 +14,17 @@
 
 function deletePresentation(presentationId) {
     if (confirm("Are you sure you want to delete this presentation?")) {
-        fetch(`/History/Delete/${presentationId}`, { method: 'DELETE' })
+        fetch(`Delete/${presentationId}`, { method: 'DELETE' })
             .then(response => {
                 if (response.ok) {
-                    location.reload();
+                    location.reload(); // Reload the page to reflect the deletion
                 } else {
                     alert("Error deleting presentation.");
                 }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("Error deleting presentation.");
             });
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PresentAte.Data;
 
@@ -11,9 +12,11 @@ using PresentAte.Data;
 namespace PresentAte.Data.Migrations
 {
     [DbContext(typeof(PresentAteDbContext))]
-    partial class PresentAteDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250227234432_AddEssays")]
+    partial class AddEssays
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

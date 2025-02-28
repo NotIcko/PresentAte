@@ -16,5 +16,6 @@
 
         public virtual ICollection<History> Histories { get; set; }
             = new HashSet<History>();
+        public ICollection<Essay> Essays { get; set; }
     }
 }
