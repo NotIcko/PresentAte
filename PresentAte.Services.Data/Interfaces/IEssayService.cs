@@ -7,5 +7,6 @@ namespace PresentAte.Services.Data.Interfaces
         Task<string> CreateEssay(string userId, int themeId, string content);
         List<EssayTheme> GetAllThemes();
         Task<string> GetEssaySuggestions(int essayId);
+        List<DisplayEssayViewModel> GetEssaysWithComments();
     }
 }

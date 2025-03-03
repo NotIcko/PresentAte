@@ -1,8 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-
-namespace PresentAte.Data.Models
+﻿namespace PresentAte.Data.Models
 {
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.ComponentModel.DataAnnotations;
+
     public class Essay
     {
         [Key]
@@ -24,5 +24,6 @@ namespace PresentAte.Data.Models
         public EssayTheme Theme { get; set; }
 
         public ICollection<EssaySuggestion> Suggestions { get; set; }
+        public ICollection<Comment> Comments { get; set; }
     }
 }

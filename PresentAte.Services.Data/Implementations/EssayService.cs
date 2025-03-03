@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using PresentAte.Data;
 using PresentAte.Data.Models;
 using PresentAte.Services.Data.Interfaces;
@@ -33,6 +34,30 @@ namespace PresentAte.Services.Data.Implementations
         public Task<string> GetEssaySuggestions(int essayId)
         {
             throw new NotImplementedException();
+        }
+
+        public List<DisplayEssayViewModel> GetEssaysWithComments()
+        {
+            return dbContext.Essays
+                .Include(e => e.User) // Include the user who submitted the essay
+                .Include(e => e.Theme) // Include the theme of the essay
+                .Include(e => e.Comments) // Include comments
+                .ThenInclude(c => c.User) // Include the user who posted each comment
+                .Select(e => new DisplayEssayViewModel
+                {
+                    EssayId = e.EssayId,
+                    Content = e.Content,
+                    UserName = e.User.UserName,
+                    ThemeName = e.Theme.ThemeName,
+                    CreatedAt = e.CreatedAt,
+                    Comments = e.Comments.Select(c => new CommentViewModel
+                    {
+                        Content = c.Content,
+                        UserName = c.User.UserName,
+                        CreatedAt = c.CreatedAt
+                    }).ToList()
+                })
+                .ToList();
         }
 
         //public async Task<string> GetEssaySuggestions(int essayId)
