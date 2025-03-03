@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PresentAte.Data;
 
@@ -11,9 +12,11 @@ using PresentAte.Data;
 namespace PresentAte.Data.Migrations
 {
     [DbContext(typeof(PresentAteDbContext))]
-    partial class PresentAteDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250303205424_SeedThemes")]
+    partial class SeedThemes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -234,39 +237,6 @@ namespace PresentAte.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("PresentAte.Data.Models.Comment", b =>
-                {
-                    b.Property<int>("CommentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CommentId"));
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("EssayId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("CommentId");
-
-                    b.HasIndex("EssayId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Comments");
-                });
-
             modelBuilder.Entity("PresentAte.Data.Models.Essay", b =>
                 {
                     b.Property<string>("EssayId")
@@ -485,25 +455,6 @@ namespace PresentAte.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PresentAte.Data.Models.Comment", b =>
-                {
-                    b.HasOne("PresentAte.Data.Models.Essay", "Essay")
-                        .WithMany("Comments")
-                        .HasForeignKey("EssayId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("PresentAte.Data.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Essay");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("PresentAte.Data.Models.Essay", b =>
                 {
                     b.HasOne("PresentAte.Data.Models.EssayTheme", "Theme")
@@ -562,8 +513,6 @@ namespace PresentAte.Data.Migrations
 
             modelBuilder.Entity("PresentAte.Data.Models.Essay", b =>
                 {
-                    b.Navigation("Comments");
-
                     b.Navigation("Suggestions");
                 });
 

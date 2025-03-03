@@ -7,11 +7,12 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/PresentAte.styles.css" asp-append-version="true" />
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="~/favicon.ico" />
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true">
     <link rel="stylesheet" href="~/css/history.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/display.css" asp-append-version="true">
 </head>
 <body>
     @* <header>
@@ -54,22 +55,37 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
 
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <a href="#">
+                        <img id="logo" class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="~/img/presentAte-logo.png" alt="..." />
+                    </a>
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item px-lg-4">
-                            <a class="nav-link text-uppercase" asp-area="" asp-controller="Home" asp-action="Index">PresentAte</a>
+                            <a class="nav-link text-uppercase" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item px-lg-4">
-                            <a class="nav-link text-uppercase" asp-area="" asp-controller="Presentation" asp-action="Generate">Generate Presentation</a>
-                        </li>
-                        <li class="nav-item px-lg-4">
-                            <a class="nav-link text-uppercase" asp-area="" asp-controller="Presentation" asp-action="Index">History</a>
-                        </li>
-                        <li class="nav-item px-lg-4">
-                            <a class="nav-link text-uppercase" asp-area="Admin" asp-controller="AdminPanel" asp-action="Index">Admin Panel</a>
-                        </li>
-                        <li class="nav-item px-lg-4">
-                            <a class="nav-link text-uppercase" asp-area="" asp-controller="Essay" asp-action="Create">Write an essay</a>
-                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item dropdown text-uppercase">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Presentations
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li class="nav-item px-lg-4">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Presentation" asp-action="Generate">Generate Presentation</a>
+                                    </li>
+                                    <li class="nav-item px-lg-4">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Presentation" asp-action="Index">History</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            @* <li class="nav-item px-lg-4">
+                        <a class="nav-link text-uppercase" asp-area="Admin" asp-controller="AdminPanel" asp-action="Index">Admin Panel</a>
+                        </li> *@
+
+                            <li class="nav-item px-lg-4">
+                                <a class="nav-link text-uppercase" asp-area="" asp-controller="Essay" asp-action="Create">Write an essay</a>
+                            </li>
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>

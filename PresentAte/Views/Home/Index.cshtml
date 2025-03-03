@@ -15,7 +15,14 @@
                     Our AI-powered system creates high-quality, well-structured presentations for Bulgarian literature classes in 11th and 12th grade. With automatically generated slides, you can save time and focus on understanding the material instead of designing presentations.
                     Each presentation is tailored to key topics, ensuring engaging and insightful lessons. Whether you need a deep dive into classic Bulgarian works or a modern interpretation of literary themes, our AI delivers! Make learning easier, faster, and more interactive!
                 </p>
-                <div class="intro-button mx-auto"><a class="btn btn-primary btn-xl" asp-controller="Presentation" asp-action="Generate">Try It Today!</a></div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="intro-button mx-auto"><a class="btn btn-primary btn-xl" asp-controller="Presentation" asp-action="Generate">Try It Today!</a></div>
+                }
+                else
+                {
+                        <div class="intro-button mx-auto"><a class="btn btn-primary btn-xl" asp-area="Identity" asp-page="/Account/Login">Try It Today!</a></div>
+                }
             </div>
         </div>
     </div>

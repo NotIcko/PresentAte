@@ -15,6 +15,7 @@ namespace PresentAte.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.IsAuthenticated = User.Identity.IsAuthenticated;
             return View();
         }
 
