@@ -13,37 +13,9 @@
     <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true">
     <link rel="stylesheet" href="~/css/history.css" asp-append-version="true">
     <link rel="stylesheet" href="~/css/display.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/essay.css" asp-append-version="true">
 </head>
 <body>
-    @* <header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-    <div class="container-fluid">
-    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PresentAte</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-    aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-    <ul class="navbar-nav flex-grow-1">
-    <li class="nav-item">
-    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-    </li>
-    <li class="nav-item">
-    <a class="nav-link text-dark" asp-area="" asp-controller="Presentation" asp-action="Generate">Generate Presentation</a>
-    </li>
-    <li class="nav-item">
-    <a class="nav-link text-dark" asp-area="" asp-controller="Presentation" asp-action="Index">View Presentations</a>
-    </li>
-    <li class="nav-item">
-    <a class="nav-link text-dark" asp-area="Admin" asp-controller="AdminPanel" asp-action="Index">Admin Panel</a>
-    </li>
-    </ul>
-    <partial name="_LoginPartial" />
-    </div>
-    </div>
-    </nav>
-    </header> *@
-
     <header class="main-header-navbar">
         <h1 class="site-heading text-center text-faded d-none d-lg-block">
             <span class="site-heading-upper text-primary mb-3">AI-Driven Presentations for Learning</span>
@@ -51,8 +23,10 @@
         </h1>
         <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
             <div class="container">
-                <a class="navbar-brand text-uppercase fw-bold d-lg-none" href="index.html">Start Bootstrap</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <a class="navbar-brand text-uppercase fw-bold d-lg-none" href="index.html">PresentAte</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <a href="#">
@@ -69,21 +43,21 @@
                                     Presentations
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li class="nav-item px-lg-4">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Presentation" asp-action="Generate">Generate Presentation</a>
+                                    <li>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Presentation" asp-action="Generate">Generate Presentation</a>
                                     </li>
-                                    <li class="nav-item px-lg-4">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Presentation" asp-action="Index">History</a>
+                                    <li>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Presentation" asp-action="Index">History</a>
                                     </li>
                                 </ul>
                             </li>
 
-                            @* <li class="nav-item px-lg-4">
-                        <a class="nav-link text-uppercase" asp-area="Admin" asp-controller="AdminPanel" asp-action="Index">Admin Panel</a>
-                        </li> *@
-
                             <li class="nav-item px-lg-4">
                                 <a class="nav-link text-uppercase" asp-area="" asp-controller="Essay" asp-action="Create">Write an essay</a>
+                            </li>
+
+                            <li class="nav-item px-lg-4">
+                                <a class="nav-link text-uppercase" asp-area="" asp-controller="Essay" asp-action="Display">Essays</a>
                             </li>
                         }
                     </ul>
@@ -99,13 +73,24 @@
         </main>
     </div>
 
-    <footer class="footer text-faded text-center py-3" id="site-footer">
+    <footer class="footer text-faded text-center py-3 mrg-top-2" id="site-footer">
         <div class="container">
             <p class="m-0 small">&copy; 2024 - PresentAte</p>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
+            dropdownElementList.forEach(function (dropdownToggleEl) {
+                new bootstrap.Dropdown(dropdownToggleEl);
+            });
+        });
+    </script>
+
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/scripts.js" asp-append-version="true"></script>
     <script src="~/js/history.js" asp-append-version="true"></script>

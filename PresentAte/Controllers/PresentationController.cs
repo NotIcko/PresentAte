@@ -55,7 +55,7 @@ namespace PresentAte.Controllers
                 var presentation = new Presentation
                 {
                     Topic = topic,
-                    FileContent = powerpointFile, 
+                    FileContent = powerpointFile,
                     CreatedAt = DateTime.UtcNow
                 };
 

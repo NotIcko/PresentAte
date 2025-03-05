@@ -3,7 +3,6 @@ using PresentAte.Services.Data.Interfaces;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
-using static PresentAte.Common.ApplicationConstants.GeminiAIEndpoint;
 
 namespace PresentAte.Services.Data.Implementations
 {
@@ -13,10 +12,17 @@ namespace PresentAte.Services.Data.Implementations
         : IGoogleGeminiService
     {
         private readonly string? apiKey = configuration["GoogleAI:ApiKey"];
+        private readonly string aiEndpoint = "https://generativelanguage.googleapis.com/v1/models/gemini-2.0:generateContent";
+
 
         public async Task<string> GeneratePresentationContent(string topic)
         {
-            string endpoint = AIEndpoint + apiKey;
+            if (string.IsNullOrEmpty(apiKey))
+            {
+                throw new InvalidOperationException("API key not configured properly.");
+            }
+
+            string endpoint = aiEndpoint + apiKey;
 
             var requestData = new
             {
@@ -39,10 +45,22 @@ namespace PresentAte.Services.Data.Implementations
             var json = JsonSerializer.Serialize(requestData);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await httpClient.PostAsync(endpoint, content);
-            response.EnsureSuccessStatusCode();
+            try
+            {
+                var response = await httpClient.PostAsync(endpoint, content);
 
-            return await response.Content.ReadAsStringAsync();
+                if (!response.IsSuccessStatusCode)
+                {
+                    string responseContent = await response.Content.ReadAsStringAsync();
+                    return $"Error: {response.StatusCode}";
+                }
+
+                return await response.Content.ReadAsStringAsync();
+            }
+            catch (Exception ex)
+            {
+                return $"Error: {ex.Message}";
+            }
         }
     }
 }

@@ -1,12 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-
-namespace PresentAte.ViewModels.EssayViewModels
+﻿namespace PresentAte.ViewModels.EssayViewModels
 {
-    public class EssayModel
+    public class EssayViewModel
     {
-        public int ThemeId { get; set; }
-        public string Content { get; set; }
+        public string ThemeName { get; set; }
 
-        public List<SelectListItem> AvailableThemes { get; set; }
+        public string Content { get; set; } = null!;
+
+        public List<string> AvailableThemes { get; set; } = new List<string>();
     }
 }

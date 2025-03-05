@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using PresentAte.Data.Models;
 using PresentAte.Services.Data.Implementations;
 using PresentAte.Services.Data.Interfaces;
@@ -18,79 +19,113 @@ namespace PresentAte.Controllers
         public IActionResult Create()
         {
             var themes = essayService.GetAllThemes();
-            var model = new EssayModel
+            var model = new EssayViewModel
             {
-                AvailableThemes = themes.Select(t => new SelectListItem
-                {
-                    Value = t.ThemeId.ToString(),
-                    Text = t.ThemeName
-                }).ToList()
+                AvailableThemes = themes.Select(t => t.ThemeName).ToList()
             };
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(EssayModel model)
+        public async Task<IActionResult> Create(EssayViewModel model)
         {
-            //if (ModelState.IsValid)
-            //{
-            //    var userId = GetCurrentUserId();
-            //    var essayId = await essayService.CreateEssay(userId, model.ThemeId, model.Content);
-            //    return RedirectToAction("GetSuggestions", new { essayId = essayId });
-            //}
 
-            //model.AvailableThemes = essayService.GetAllThemes().Select(t => new SelectListItem
-            //{
-            //    Value = t.ThemeId.ToString(),
-            //    Text = t.ThemeName
-            //}).ToList();
-            //return View(model);
-
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var userId = GetCurrentUserId();
-                var essayId = await essayService.CreateEssay(userId, model.ThemeId, model.Content);
+                model.AvailableThemes = essayService.GetAllThemes().Select(t => t.ThemeName).ToList();
 
-                // Set success message
-                TempData["SuccessMessage"] = "Your essay has been successfully submitted!";
-
-                return RedirectToAction("Display"); // Redirect to a page where essays are displayed
+                return View(model);
             }
 
-            // Repopulate themes and return the view if the model is invalid
-            model.AvailableThemes = essayService.GetAllThemes()
-                .Select(t => new SelectListItem
-                {
-                    Value = t.ThemeId.ToString(),
-                    Text = t.ThemeName
-                })
-                .ToList();
+            try
+            {
+                var userId = GetCurrentUserId();
+                await essayService.CreateEssay(model, userId);
 
-            return View(model);
+                TempData["SuccessMessage"] = "Your essay has been successfully submitted!";
+
+                return RedirectToAction("Display");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpGet]
         public IActionResult Display(int? themeId, string? userId)
         {
-            // Fetch essays with comments
-            var essays = essayService.GetEssaysWithComments();
-
-            // Apply filters if provided
-            //if (themeId.HasValue)
-            //{
-            //    essays = essays.Where(e => e.ThemeId == themeId.Value).ToList();
-            //}
-
-            //if (userId.HasValue)
-            //{
-            //    essays = essays.Where(e => e.UserId == userId.Value).ToList();
-            //}
-
-            // Populate ViewBag for filters
+            var essays = essayService.GetEssaysWithComments(themeId);
             ViewBag.Themes = essayService.GetAllThemes();
             ViewBag.Users = userManager.Users.ToList();
 
+            ViewBag.SelectedThemeId = themeId;
+            ViewBag.SelectedUserId = userId;
+
             return View(essays);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditEssay(int essayId)
+        {
+            var essay = await essayService.GetEssayByIdAsync(essayId);
+            if (essay == null)
+            {
+                TempData["ErrorMessage"] = "Essay not found.";
+                return RedirectToAction("Display");
+            }
+
+            ViewBag.Themes = essayService.GetAllThemes();
+            return View(essay);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditEssay(int essayId, string content, int themeId)
+        {
+            try
+            {
+                await essayService.UpdateEssayAsync(essayId, content, themeId);
+                TempData["SuccessMessage"] = "Essay updated successfully!";
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = ex.Message;
+            }
+
+            return RedirectToAction("Display");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteEssay(int essayId)
+        {
+            try
+            {
+                await essayService.DeleteEssayAsync(essayId);
+                TempData["SuccessMessage"] = "Essay deleted successfully!";
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = ex.Message;
+            }
+
+            return RedirectToAction("Display");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddComment(int essayId, string content)
+        {
+            if (string.IsNullOrEmpty(content))
+            {
+                TempData["ErrorMessage"] = "Comment cannot be empty.";
+                return RedirectToAction("Display");
+            }
+
+            string userId = GetCurrentUserId();
+
+            await essayService.CreateComment(essayId, content, userId);
+
+            TempData["SuccessMessage"] = "Comment added successfully!";
+            return RedirectToAction("Display");
         }
 
         [HttpGet]

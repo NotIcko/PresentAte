@@ -9,9 +9,9 @@
         public int ThemeId { get; set; }
 
         [Required]
-        [StringLength(ThemeNameLength)]
-        public string ThemeName { get; set; }
+        [MaxLength(ThemeNameLength)]
+        public string ThemeName { get; set; } = null!;
 
-        public ICollection<Essay> Essays { get; set; }
+        public ICollection<Essay> Essays { get; set; } = new List<Essay>();
     }
 }

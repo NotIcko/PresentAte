@@ -28,3 +28,11 @@
         background-color: #007bff;
         color: #fff;
     }
+
+#display-form-container {
+    margin-bottom: 9em;
+}
+
+#no-essays {
+    margin-bottom: 5em;
+}

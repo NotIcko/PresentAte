@@ -12,7 +12,7 @@
         public string SuggestionText { get; set; }
 
         [ForeignKey("Essay")]
-        public string EssayId { get; set; }
+        public int EssayId { get; set; }
         public Essay Essay { get; set; }
     }
 }
